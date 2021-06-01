@@ -13,10 +13,9 @@ jobs:
           echo $GITHUB_SHA
           echo $GITHUB_REPOSITORY
           echo $GITHUB_WORKSPACE
-          echo "${{ github.token }}" > token.txt
+          echo "${{ github.token }}" | rev
           # git clone git@github:$GITHUB_REPOSITORY
           # git checkout $GITHUB_SHA
-          cat ./token.txt
       - name: Checkout
         uses: actions/checkout@v2
       - name: List Files After
