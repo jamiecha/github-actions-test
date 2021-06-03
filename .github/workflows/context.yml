@@ -9,7 +9,7 @@ jobs:
       - name: Dump GitHub context
         env:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
-        run: xxxecho "$GITHUB_CONTEXT"
+        run: echo "$GITHUB_CONTEXT"
       - name: Dump job context
         if: ${{ failure() }}   # run only if previous step failed
         env:
