@@ -7,9 +7,20 @@ jobs:
       matrix:
         os: [macos-latest, ubuntu-latest, windows-latest]
         node_version: [10, 12, 14]
+        include:
+          - os: ubuntu-latest
+            node_version: 12
+            is_ubuntu_12: "true"  # for a specific set, we can add extra configuration
+        exclude:
+          - os: ubuntu-latest
+            node_version: 10
+          - os: macos-latest
+            node_version: 12
       # fail-fast: true
       # max-parallel: 2
     runs-on: ${{ matrix.os }}  # mac -> ubuntu -> windows
+    env:
+      IS_UBUNTU_12: ${{ matrix.is_ubuntu_12 }}  # only valid when ubuntu && node 12
     steps:
       - name: Log node version
         run: node -v
@@ -17,4 +28,6 @@ jobs:
         with:
           node-version: ${{ matrix.node_version }}   # 10 -> 12 -> 14
       - name: Log node version
-        run: node -v
+        run: |
+          node -v
+          echo $IS_UBUNTU_12
